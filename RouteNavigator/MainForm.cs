@@ -11,6 +11,8 @@ namespace RouteNavigator
 {
     public partial class MainForm : Form
     {
+        private const string TITLE = "Route navigator";
+
         private IRouteDisplay _routeDisplay;
         private string _currentPath;
 
@@ -22,6 +24,8 @@ namespace RouteNavigator
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Text = TITLE;
+
             var settings = Settings.Default;
             //settings.Upgrade();
 
@@ -80,6 +84,8 @@ namespace RouteNavigator
             _currentPath = path;
 
             SaveRecentPath(path);
+
+            Text = TITLE + ": " + path;
         }
 
         private void SaveRecentPath(string path)

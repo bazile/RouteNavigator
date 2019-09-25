@@ -33,7 +33,6 @@
             // 
             // button1
             // 
-            this.button1.Image = global::RouteNavigator.Properties.Resources.DllFile1;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.button1.Location = new System.Drawing.Point(114, 65);
             this.button1.Name = "button1";

@@ -76,6 +76,7 @@
             this.lvRoutes.UseCompatibleStateImageBehavior = false;
             this.lvRoutes.View = System.Windows.Forms.View.Details;
             this.lvRoutes.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.OnListViewRoutes_ColumnClick);
+            this.lvRoutes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvRoutes_KeyDown);
             // 
             // tbFilter
             // 

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace RouteNavigator
@@ -83,6 +84,42 @@ namespace RouteNavigator
             }
 
             ((ListView)sender).Sort();
+        }
+
+        private void lvRoutes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!e.Control || e.KeyCode != Keys.C) return;
+            if (lvRoutes.SelectedItems.Count == 0) return;
+
+            e.Handled = true;
+            string[] array = new string[lvRoutes.SelectedItems[0].SubItems.Count + 1];
+
+            string text;
+            if (lvRoutes.SelectedItems.Count == 1)
+            {
+                var lvi = lvRoutes.SelectedItems[0];
+                array[0] = lvi.Text;
+                for (int i = 0; i < lvi.SubItems.Count; i++)
+                {
+                    array[i + 1] = lvi.SubItems[i].Text;
+                }
+                text = string.Join(" ", array);
+            }
+            else
+            {
+                var sb = new StringBuilder();
+                foreach (ListViewItem lvi in lvRoutes.SelectedItems)
+                {
+                    array[0] = lvi.Text;
+                    for (int i = 0; i < lvi.SubItems.Count; i++)
+                    {
+                        array[i + 1] = lvi.SubItems[i].Text;
+                    }
+                    sb.AppendLine(string.Join(" ", array));
+                }
+                text = sb.ToString();
+            }
+            Clipboard.SetText(text);
         }
     }
 }

@@ -7,7 +7,6 @@ using RouteNavigator.Properties;
 
 // TODO: treeview
 // TODO: open file in Visual Studio
-// TODO: copy selection to cipboard
 
 namespace RouteNavigator
 {

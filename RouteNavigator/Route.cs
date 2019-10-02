@@ -21,7 +21,7 @@ namespace RouteNavigator
             MethodName = methodName;
             HttpMethod = httpMethod;
 
-            FullRoute = prefix + (!string.IsNullOrEmpty(template) ? "/" + template : "");
+            FullRoute = (prefix + "/" + template).TrimStart('/');
             NormalizedFullRoute = Normalize(FullRoute);
         }
 

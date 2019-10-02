@@ -27,8 +27,6 @@ namespace RouteNavigator
             var routes = new List<Route>();
 
             var routePrefix = GetRoutePrefix(type);
-            if (routePrefix == null) return routes;
-
             foreach (var method in type.Methods)
             {
                 foreach (string routeTemplate in GetRoutes(method))
@@ -48,12 +46,12 @@ namespace RouteNavigator
         static string GetRoutePrefix(TypeDefinition td)
         {
             var routePrefixAttr = td.CustomAttributes.SingleOrDefault(a => a.AttributeType.FullName == "System.Web.Http.RoutePrefixAttribute");
-            if (routePrefixAttr == null) return null;
+            if (routePrefixAttr == null) return "";
 
             if (routePrefixAttr.Constructor.Parameters.Count != 1) throw new Exception("Huh?");
             if (routePrefixAttr.Constructor.Parameters[0].ParameterType.FullName != "System.String") throw new Exception("Huh?");
 
-            return (string)routePrefixAttr.ConstructorArguments[0].Value;
+            return (string)routePrefixAttr.ConstructorArguments[0].Value ?? "";
         }
 
         static IReadOnlyList<string> GetRoutes(MethodDefinition method)

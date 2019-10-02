@@ -31,16 +31,16 @@ namespace RouteNavigator
 
             foreach (var method in type.Methods)
             {
-                string route = GetRoute(method);
-                if (route == null) continue;
-
-                routes.Add(new Route(
-                    routePrefix,
-                    route,
-                    type.FullName,
-                    method.Name,
-                    GetHttpMethod(method)
-                ));
+                foreach (string routeTemplate in GetRoutes(method))
+                {
+                    routes.Add(new Route(
+                        routePrefix,
+                        routeTemplate,
+                        type.FullName,
+                        method.Name,
+                        GetHttpMethod(method)
+                    ));
+                }
             }
             return routes;
         }
@@ -56,16 +56,23 @@ namespace RouteNavigator
             return (string)routePrefixAttr.ConstructorArguments[0].Value;
         }
 
-        static string GetRoute(MethodDefinition method)
+        static IReadOnlyList<string> GetRoutes(MethodDefinition method)
         {
-            var routeAttr = method.CustomAttributes.SingleOrDefault(a => a.AttributeType.FullName == "System.Web.Http.RouteAttribute");
-            if (routeAttr == null) return null;
+            var routeAttributes = method.CustomAttributes
+                .Where(a => a.AttributeType.FullName == "System.Web.Http.RouteAttribute")
+                .ToArray();
 
-            if (routeAttr.Constructor.Parameters.Count != 1) throw new Exception("Huh?");
-            if (routeAttr.Constructor.Parameters[0].ParameterType.FullName != "System.String") throw new Exception("Huh?");
-            if (!method.IsPublic) throw new Exception("Huh?");
+            var routes = new List<string>(routeAttributes.Length);
+            foreach (var routeAttr in routeAttributes)
+            {
 
-            return (string)routeAttr.ConstructorArguments[0].Value;
+                if (routeAttr.Constructor.Parameters.Count != 1) throw new Exception("Huh?");
+                if (routeAttr.Constructor.Parameters[0].ParameterType.FullName != "System.String") throw new Exception("Huh?");
+                if (!method.IsPublic) throw new Exception("Huh?");
+
+                routes.Add((string)routeAttr.ConstructorArguments[0].Value);
+            }
+            return routes;
         }
 
         private static string GetHttpMethod(MethodDefinition method)

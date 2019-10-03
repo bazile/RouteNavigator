@@ -16,6 +16,8 @@ namespace RouteNavigator
         [Browsable(false)]
         public List<Route> Routes { get; set; }
 
+        public event DisplayCountChange DisplayCountChanged;
+
         private IObservable<object> _mySequence;
 
         public ListViewScreen()
@@ -52,6 +54,8 @@ namespace RouteNavigator
             }
             lvRoutes.AutoResizeColumns(lvRoutes.Items.Count > 0 ? ColumnHeaderAutoResizeStyle.ColumnContent : ColumnHeaderAutoResizeStyle.HeaderSize);
             lvRoutes.EndUpdate();
+
+            DisplayCountChanged?.Invoke(lvRoutes.Items.Count);
         }
 
         private static IEnumerable<Route> FilterRoutes(IEnumerable<Route> routes, string filter)

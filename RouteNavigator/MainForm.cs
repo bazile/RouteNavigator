@@ -21,7 +21,10 @@ namespace RouteNavigator
         {
             InitializeComponent();
             _routeDisplay = listViewScreen;
+            _routeDisplay.DisplayCountChanged += OnDisplayCountChanged;
         }
+
+        private void OnDisplayCountChanged(int displayCount) => UpdateStatusLabel(displayCount);
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -67,18 +70,7 @@ namespace RouteNavigator
                 return;
             }
 
-            switch (routes.Count)
-            {
-                case 0:
-                    toolStripStatusLabel.Text = "No routes were found";
-                    break;
-                case 1:
-                    toolStripStatusLabel.Text = "1 route was found";
-                    break;
-                default:
-                    toolStripStatusLabel.Text = $"{routes.Count} routes were found";
-                    break;
-            }
+            UpdateStatusLabel(routes.Count);
             _routeDisplay.Routes = routes;
             _routeDisplay.DisplayRoutes();
 
@@ -87,6 +79,22 @@ namespace RouteNavigator
             SaveRecentPath(path);
 
             Text = TITLE + ": " + path;
+        }
+
+        private void UpdateStatusLabel(int routeCount)
+        {
+            switch (routeCount)
+            {
+                case 0:
+                    toolStripStatusLabel.Text = "No routes were found";
+                    break;
+                case 1:
+                    toolStripStatusLabel.Text = "1 route was found";
+                    break;
+                default:
+                    toolStripStatusLabel.Text = $"{routeCount} routes were found";
+                    break;
+            }
         }
 
         private void SaveRecentPath(string path)

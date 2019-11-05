@@ -25,7 +25,16 @@ namespace RouteNavigator
             NormalizedFullRoute = Normalize(FullRoute);
         }
 
-        public static string Normalize(string template) => Regex.Replace(template, @"\{[^\}]+}", "{xyz}");
+        public static string Normalize(string template)
+        {
+            const string EXPR = @"
+(
+    \{[^\}]+\}
+    |
+    [0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}
+)";
+            return Regex.Replace(template, EXPR, "{xyz}", RegexOptions.IgnorePatternWhitespace);
+        }
 
         //public int CompareTo(Route other)
         //{

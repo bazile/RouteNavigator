@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="routing.ico" />
+    <Content Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mono.Cecil">

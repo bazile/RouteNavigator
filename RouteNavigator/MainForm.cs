@@ -5,9 +5,6 @@ using System.IO;
 using System.Windows.Forms;
 using RouteNavigator.Properties;
 
-// TODO: treeview
-// TODO: open file in Visual Studio
-
 namespace RouteNavigator
 {
     public partial class MainForm : Form

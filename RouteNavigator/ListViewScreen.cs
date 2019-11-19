@@ -41,6 +41,11 @@ namespace RouteNavigator
 
         public void DisplayRoutes(string filter = null)
         {
+            if (filter == null)
+            {
+                filter = tbFilter.Text;
+            }
+
             lvRoutes.BeginUpdate();
             lvRoutes.Items.Clear();
             var filteredRoutes = FilterRoutes(Routes, filter);

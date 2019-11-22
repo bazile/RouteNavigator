@@ -53,6 +53,7 @@
     <Compile Include="DisplayCountChange.cs" />
     <Compile Include="IRouteDisplay.cs" />
     <Compile Include="ListViewColumnSorter.cs" />
+    <Compile Include="ListViewExtensions.cs" />
     <Compile Include="ListViewScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -97,7 +97,18 @@ namespace RouteNavigator
 
         private void lvRoutes_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!e.Control || e.KeyCode != Keys.C) return;
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                CopySelectionToClipboard(e);
+            }
+            else if (e.Control && e.KeyCode == Keys.A)
+            {
+                lvRoutes.SelectAllItems();
+            }
+        }
+
+        private void CopySelectionToClipboard(KeyEventArgs e)
+        {
             if (lvRoutes.SelectedItems.Count == 0) return;
 
             e.Handled = true;

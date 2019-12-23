@@ -12,14 +12,16 @@ namespace RouteNavigator
         public string HttpMethod { get; }
         public string FullRoute { get; }
         public string NormalizedFullRoute { get; }
+        public bool RequiresAuthorization { get; set; }
 
-        public Route(string prefix, string template, string className, string methodName, string httpMethod)
+        public Route(string prefix, string template, string className, string methodName, string httpMethod, bool requiresAuthorization)
         {
             Prefix = prefix;
             Template = template;
             ClassName = className;
             MethodName = methodName;
             HttpMethod = httpMethod;
+            RequiresAuthorization = requiresAuthorization;
 
             FullRoute = (prefix + "/" + template).TrimStart('/');
             NormalizedFullRoute = Normalize(FullRoute);

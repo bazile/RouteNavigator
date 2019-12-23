@@ -32,12 +32,14 @@
             System.Windows.Forms.ColumnHeader columnHeaderClass;
             System.Windows.Forms.ColumnHeader columnHeaderMethod;
             System.Windows.Forms.ColumnHeader columnHeaderHttpMethod;
+            System.Windows.Forms.ColumnHeader columnHeaderAuth;
             this.lvRoutes = new System.Windows.Forms.ListView();
             this.tbFilter = new System.Windows.Forms.TextBox();
             columnHeaderRoute = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeaderClass = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeaderMethod = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeaderHttpMethod = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeaderAuth = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // columnHeaderRoute
@@ -62,6 +64,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvRoutes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            columnHeaderAuth,
             columnHeaderHttpMethod,
             columnHeaderRoute,
             columnHeaderClass,
@@ -86,6 +89,10 @@
             this.tbFilter.Name = "tbFilter";
             this.tbFilter.Size = new System.Drawing.Size(599, 20);
             this.tbFilter.TabIndex = 2;
+            // 
+            // columnHeaderAuth
+            // 
+            columnHeaderAuth.Text = "Auth";
             // 
             // ListViewScreen
             // 

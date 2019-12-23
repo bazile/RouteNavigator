@@ -36,7 +36,8 @@ namespace RouteNavigator
                         routeTemplate,
                         type.FullName,
                         method.Name,
-                        GetHttpMethod(method)
+                        GetHttpMethod(method),
+                        GetRouteAuthorization(method)
                     ));
                 }
             }
@@ -52,6 +53,11 @@ namespace RouteNavigator
             if (routePrefixAttr.Constructor.Parameters[0].ParameterType.FullName != "System.String") throw new Exception("Huh?");
 
             return (string)routePrefixAttr.ConstructorArguments[0].Value ?? "";
+        }
+
+        static bool GetRouteAuthorization(MethodDefinition method)
+        {
+            return null!= method.CustomAttributes.SingleOrDefault(a => a.AttributeType.FullName == "System.Web.Http.AuthorizeAttribute");
         }
 
         static IReadOnlyList<string> GetRoutes(MethodDefinition method)

@@ -51,7 +51,8 @@ namespace RouteNavigator
             var filteredRoutes = FilterRoutes(Routes, filter);
             foreach (var route in filteredRoutes)
             {
-                var lvi = new ListViewItem(route.HttpMethod);
+                var lvi = new ListViewItem(route.RequiresAuthorization ? "Yes\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0" : "No");
+                lvi.SubItems.Add(route.HttpMethod);
                 lvi.SubItems.Add(route.FullRoute);
                 lvi.SubItems.Add(route.ClassName);
                 lvi.SubItems.Add(route.MethodName);

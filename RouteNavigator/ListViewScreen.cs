@@ -70,6 +70,11 @@ namespace RouteNavigator
                 return routes;
             else
             {
+                if (Uri.TryCreate(filter, UriKind.Absolute, out Uri uri))
+                {
+                    filter = uri.GetComponents(UriComponents.Path, UriFormat.Unescaped);
+                }
+
                 filter = filter.Trim().TrimStart('/');
                 string normalizedFilter = Route.Normalize(filter);
                 return routes.Where(r =>

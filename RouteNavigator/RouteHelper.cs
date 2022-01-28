@@ -81,18 +81,25 @@ namespace RouteNavigator
 
         private static string GetHttpMethod(MethodDefinition method)
         {
-            var attr = method.CustomAttributes.SingleOrDefault(a => a.AttributeType.FullName.StartsWith("System.Web.Http.Http"));
-            switch (attr?.AttributeType.Name)
+            try
             {
-                case "HttpDeleteAttribute": return "DELETE";
-                case "HttpGetAttribute": return "GET";
-                case "HttpHeadAttribute": return "HEAD";
-                case "HttpOptionsAttribute": return "OPTIONS";
-                case "HttpPatchAttribute": return "PATCH";
-                case "HttpPostAttribute": return "POST";
-                case "HttpPutAttribute": return "PUT";
+                var attr = method.CustomAttributes.SingleOrDefault(a => a.AttributeType.FullName.StartsWith("System.Web.Http.Http"));
+                switch (attr?.AttributeType.Name)
+                {
+                    case "HttpDeleteAttribute": return "DELETE";
+                    case "HttpGetAttribute": return "GET";
+                    case "HttpHeadAttribute": return "HEAD";
+                    case "HttpOptionsAttribute": return "OPTIONS";
+                    case "HttpPatchAttribute": return "PATCH";
+                    case "HttpPostAttribute": return "POST";
+                    case "HttpPutAttribute": return "PUT";
+                }
             }
-            return "";
+            catch (InvalidOperationException)
+            {
+            }
+
+            return "???";
         }
     }
 }
